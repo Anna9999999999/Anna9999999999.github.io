@@ -411,13 +411,17 @@ result.style.display = 'block';
             }
             
             // Расчет свободных средств
-            let cvob;
-            if (spouseIncome !== 0) {
-                cvob = (income + spouseIncome) - ((2 + dependents) * 20000);
-            } else {
+             let cvob;
+            if (spouseIncome == 0) {
                 cvob = (income + spouseIncome) - ((1 + dependents) * 20000);
+            } else {
+                if (spouseIncome<(1+dependents)*20000) {
+                    cvob = (income + spouseIncome) - ((2 + dependents) * 20000);
+                }
+                if (spouseIncome>=(1+dependents)*20000) { 
+                    cvob=income-20000;
+                }
             }
-            
             // Расчет ежемесячного платежа
             const M = R / 12;
             let P = amount * (M * Math.pow(1 + M, term)) / (Math.pow(1 + M, term) - 1);
@@ -447,3 +451,4 @@ result.style.display = 'block';
 </body>
 
 </html>
+
